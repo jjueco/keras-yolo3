@@ -1,6 +1,6 @@
 # Code and data to reproduce the study of "Underwater Fish Detection using Deep Learning for Water Power Applications"
 
-# This repostitory is a fork from https://github.com/experiencor/keras-yolo3
+This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
 ## Dataset and Model
 
@@ -15,17 +15,21 @@ MHK and hydropower underwater videos and fish annotations:
 - [ ] Evaluation on COCO
 - [ ] MobileNet, DenseNet, ResNet, and VGG backends
 
-## Detection
+## Try to detect fish in your video or image using our trained model
 
-Grab the pretrained weights of yolo3 from https://pjreddie.com/media/files/yolov3.weights.
+```python predict.py -c config_5.json -i myfishvideo.mp4``` 
 
-```python yolo3_one_file_to_detect_them_all.py -w yolo3.weights -i dog.jpg``` 
+The purpose of config_5.json file is to specify model settings and to load our trained model weights using the three MHK and hydropower underwater video datasets that we described earlier. 
+
+If the detection results are good, congratulations!
+
+If the detection results are bad, you may want to re-train the model on your dataset. To do this, follow the next steps.
 
 ## Training
 
 ### 1. Data preparation 
 
-Download the Raccoon dataset from from https://github.com/experiencor/raccoon_dataset.
+Data need to be input in the format of 
 
 Organize the dataset into 4 folders:
 
@@ -48,29 +52,29 @@ The configuration file is a json file, which looks like this:
         "min_input_size":       352,
         "max_input_size":       448,
         "anchors":              [10,13,  16,30,  33,23,  30,61,  62,45,  59,119,  116,90,  156,198,  373,326],
-        "labels":               ["raccoon"]
+        "labels":               ["fish"]
     },
 
     "train": {
-        "train_image_folder":   "/home/andy/data/raccoon_dataset/images/",
-        "train_annot_folder":   "/home/andy/data/raccoon_dataset/anns/",      
+        "train_image_folder":   "../train_x/",
+        "train_annot_folder":   "../train_y/",      
           
         "train_times":          10,             # the number of time to cycle through the training set, useful for small datasets
         "pretrained_weights":   "",             # specify the path of the pretrained weights, but it's fine to start from scratch
-        "batch_size":           16,             # the number of images to read in each batch
+        "batch_size":           20,             # the number of images to read in each batch
         "learning_rate":        1e-4,           # the base learning rate of the default Adam rate scheduler
-        "nb_epoch":             50,             # number of epoches
+        "nb_epoch":             100,             # number of epoches
         "warmup_epochs":        3,              # the number of initial epochs during which the sizes of the 5 boxes in each cell is forced to match the sizes of the 5 anchors, this trick seems to improve precision emperically
         "ignore_thresh":        0.5,
         "gpus":                 "0,1",
 
-        "saved_weights_name":   "raccoon.h5",
+        "saved_weights_name":   "fish_wx_v5_all_data.h5",
         "debug":                true            # turn on/off the line that prints current confidence, position, size, class losses and recall
     },
 
     "valid": {
-        "valid_image_folder":   "",
-        "valid_annot_folder":   "",
+        "valid_image_folder":   "../vali_x/",
+        "valid_annot_folder":   "../vali_y/",
 
         "valid_times":          1
     }
@@ -79,12 +83,6 @@ The configuration file is a json file, which looks like this:
 ```
 
 The ```labels``` setting lists the labels to be trained on. Only images, which has labels being listed, are fed to the network. The rest images are simply ignored. By this way, a Dog Detector can easily be trained using VOC or COCO dataset by setting ```labels``` to ```['dog']```.
-
-Download pretrained weights for backend at:
-
-https://1drv.ms/u/s!ApLdDEW3ut5fgQXa7GzSlG-mdza6
-
-**This weights must be put in the root folder of the repository. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without this weights.**
 
 ### 3. Generate anchors for your dataset (optional)
 
