@@ -1,13 +1,10 @@
-# YOLO3 (Detection, Training, and Evaluation)
+# Code and data to reproduce the study of "Underwater Fish Detection using Deep Learning for Water Power Applications"
+
+# This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
 ## Dataset and Model
 
-Dataset | mAP | Demo | Config | Model
-:---:|:---:|:---:|:---:|:---:
-Kangaroo Detection (1 class) (https://github.com/experiencor/kangaroo) | 95% | https://youtu.be/URO3UDHvoLY | check zoo | http://bit.do/ekQFj
-Raccoon Detection (1 class) (https://github.com/experiencor/raccoon_dataset) | 98% | https://youtu.be/lxLyLIL7OsU | check zoo | http://bit.do/ekQFf
-Red Blood Cell Detection (3 classes) (https://github.com/experiencor/BCCD_Dataset) | 84% | https://imgur.com/a/uJl2lRI | check zoo | http://bit.do/ekQFc
-VOC (20 classes) (http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) | 72% | https://youtu.be/0RmOI6hcfBI | check zoo | http://bit.do/ekQE5
+MHK and hydropower underwater videos and fish annotations: 
 
 ## Todo list:
 - [x] Yolo3 detection
