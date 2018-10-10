@@ -25,11 +25,11 @@ If the detection results are good, congratulations!
 
 If the detection results are bad, you may want to re-train the model on your dataset. To do this, follow the next steps.
 
-## Training
+## If you want to re-train the model on your fish dataset, here are the steps to follow:
 
 ### 1. Data preparation 
 
-Data need to be input in the format of 
+Data need to be input in the format of images and annotation in VOC format (.xml). You may find this script useful to generate the image and xml files: dl_utility.py
 
 Organize the dataset into 4 folders:
 
@@ -86,23 +86,24 @@ The ```labels``` setting lists the labels to be trained on. Only images, which h
 
 ### 3. Generate anchors for your dataset (optional)
 
-`python gen_anchors.py -c config.json`
+`python gen_anchors.py -c config_5.json`
 
 Copy the generated anchors printed on the terminal to the ```anchors``` setting in ```config.json```.
 
 ### 4. Start the training process
 
-`python train.py -c config.json`
+`python train.py -c config_5.json`
 
 By the end of this process, the code will write the weights of the best model to file best_weights.h5 (or whatever name specified in the setting "saved_weights_name" in the config.json file). The training process stops when the loss on the validation set is not improved in 3 consecutive epoches.
 
 ### 5. Perform detection using trained weights on image, set of images, video, or webcam
-`python predict.py -c config.json -i /path/to/image/or/video`
+`python predict.py -c config_5.json -i /path/to/image/or/video`
 
 It carries out detection on the image and write the image with detected bounding boxes to the same folder.
 
 ## Evaluation
 
-`python evaluate.py -c config.json`
+`python evaluate.py -c config_5.json`
 
 Compute the mAP performance of the model defined in `saved_weights_name` on the validation dataset defined in `valid_image_folder` and `valid_annot_folder`.
+A ".csv" file which include the number of 
