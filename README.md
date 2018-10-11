@@ -3,7 +3,7 @@
 This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
 ## Model testing results:
-Fish Detection at Wells Dam Model output:
+Wells Dam fish ladder:
 ![Alt text](media/WellsDamPredict.gif?raw=true "Fish Detection at Wells Dam Model output")
 
 Some true and false detections in the paper (green: human annotations; red: model detections):
