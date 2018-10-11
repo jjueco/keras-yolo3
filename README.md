@@ -29,6 +29,8 @@ MHK and hydropower underwater videos and fish annotations:
 
 The purpose of config_5.json file is to specify model settings and to load our trained model weights using the three MHK and hydropower underwater video datasets that we described earlier. 
 
+The input following "-i" can be either an image, a folder of images, or a video. If you video format is not supported, try to convert the video to mp4.
+
 If the detection results are good, congratulations!
 
 If the detection results are bad, you may want to re-train the model on your dataset. To do this, follow the next steps.
