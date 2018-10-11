@@ -5,7 +5,7 @@ import argparse
 import json
 import cv2
 from utils.utils import get_yolo_boxes, makedirs
-from utils.bbox import draw_boxes
+from utils.bbox import draw_boxes, write_predict_boxes_xml
 from keras.models import load_model
 from tqdm import tqdm
 import numpy as np
@@ -91,6 +91,9 @@ def _main_(args):
 
                         # write result to the output video
                         video_writer.write(images[i]) 
+                        
+                        # write result to the output text file WX
+                        
                     images = []
                 if show_window and cv2.waitKey(1) == 27: break  # esc to quit
 
@@ -120,7 +123,10 @@ def _main_(args):
             draw_boxes(image, boxes, config['model']['labels'], obj_thresh) 
      
             # write the image with bounding boxes to file
-            cv2.imwrite(output_path + image_path.split('/')[-1], np.uint8(image))         
+            cv2.imwrite(output_path + image_path.split('/')[-1], np.uint8(image)) 
+            
+            # write the image with bounding boxes to file
+            write_predict_boxes_xml(boxes, output_path, image_path, image, config['model']['labels'], obj_thresh)        
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Predict with a trained yolo model')

@@ -53,12 +53,17 @@ def _main_(args):
     infer_model = load_model(config['train']['saved_weights_name'])
 
     # compute mAP for all the classes
-    average_precisions = evaluate(infer_model, valid_generator)
+    average_precisions, precisions, recalls = evaluate(infer_model, valid_generator)
 
     # print the score
     for label, average_precision in average_precisions.items():
-        print(labels[label] + ': {:.4f}'.format(average_precision))
-    print('mAP: {:.4f}'.format(sum(average_precisions.values()) / len(average_precisions)))           
+        print(labels[label] + ' mAP: {:.4f}'.format(average_precision))
+    for label, precision in precisions.items():
+        print(labels[label] + ' precision: {:.4f}'.format(precision))
+    for label, recall in recalls.items():
+        print(labels[label] + ' recall: {:.4f}'.format(recall))
+    print('mAP: {:.4f}'.format(sum(average_precisions.values()) / len(average_precisions)))  
+         
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Evaluate YOLO_v3 model on any dataset')

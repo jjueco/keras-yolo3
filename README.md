@@ -2,6 +2,9 @@
 
 This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
+![Alt text](media/WellsDamPredict.gif?raw=true "Fish Detection at Wells Dam Model output")
+
+
 ## Dataset and Model
 
 MHK and hydropower underwater videos and fish annotations: 
@@ -65,7 +68,7 @@ The configuration file is a json file, which looks like this:
         "learning_rate":        1e-4,           # the base learning rate of the default Adam rate scheduler
         "nb_epoch":             100,             # number of epoches
         "warmup_epochs":        3,              # the number of initial epochs during which the sizes of the 5 boxes in each cell is forced to match the sizes of the 5 anchors, this trick seems to improve precision emperically
-        "ignore_thresh":        0.5,
+        "ignore_thresh":        0.5,           # noticed that this parameter does not affect evalute.py. Need to manually specify under utils.py if want to modify.
         "gpus":                 "0,1",
 
         "saved_weights_name":   "fish_wx_v5_all_data.h5",
@@ -106,4 +109,10 @@ It carries out detection on the image and write the image with detected bounding
 `python evaluate.py -c config_5.json`
 
 Compute the mAP performance of the model defined in `saved_weights_name` on the validation dataset defined in `valid_image_folder` and `valid_annot_folder`.
-A ".csv" file which include the number of 
+A ".csv" file which include the cummulative statistics of true positives, false positives, precision and recall. The images in the paper are generated with ignore_thresh as 0.01.
+
+By default the option to output red detection boxes and green ground truth boxes during evaluation is turned off. To turn them on, go to utils/utils.py and 
+uncomment the two lines, and you can also customize where you want the outputs to be:
+`write_predict_boxes_xml(boxes=pred_boxes, output_path='output/debug/', image_path=generator.instances[i]['filename'],  image=raw_image[0], labels=['fish'], obj_thresh=obj_thresh)`
+`cv2.imwrite('output/debug/' + generator.instances[i]['filename'].split('/')[-1], np.uint8(raw_image[0]))`
+

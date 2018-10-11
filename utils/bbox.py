@@ -76,14 +76,74 @@ def draw_boxes(image, boxes, labels, obj_thresh, quiet=True):
                                [box.xmin+width+13, box.ymin-height-26], 
                                [box.xmin+width+13, box.ymin]], dtype='int32')  
 
-            cv2.rectangle(img=image, pt1=(box.xmin,box.ymin), pt2=(box.xmax,box.ymax), color=get_color(label), thickness=5)
-            cv2.fillPoly(img=image, pts=[region], color=get_color(label))
+            cv2.rectangle(img=image, pt1=(box.xmin,box.ymin), pt2=(box.xmax,box.ymax), color=get_color(label), thickness=2)
+            #cv2.fillPoly(img=image, pts=[region], color=get_color(label)) # do not fill polygon because it covers too large area
             cv2.putText(img=image, 
                         text=label_str, 
                         org=(box.xmin+13, box.ymin - 13), 
                         fontFace=cv2.FONT_HERSHEY_SIMPLEX, 
-                        fontScale=1e-3 * image.shape[0], 
-                        color=(0,0,0), 
+                        fontScale=5e-4 * image.shape[0], 
+                        color=get_color(label), #(0,0,0), 
                         thickness=2)
         
-    return image          
+    return image  
+
+def draw_anno_boxes(image, annotations):
+    for anno in annotations:
+#        region = np.array([[anno[0]-3,        anno[1]], 
+#                           [anno[0]-3,        anno[1]-anno[3]+anno[1]-26], 
+#                           [anno[2]+13, anno[1]-anno[3]+anno[1]-26], 
+#                           [anno[2]+13, anno[1]]], dtype='int32')  
+        
+        cv2.rectangle(img=image, pt1=(anno[0],anno[1]), pt2=(anno[2],anno[3]), color=(0,128,0), thickness=2)
+        #cv2.fillPoly(img=image, pts=[region], color=get_color(label))
+#        cv2.putText(img=image, 
+#                    text=str(anno[4]), 
+#                    org=(anno[0]+13, anno[1] - 13), 
+#                    fontFace=cv2.FONT_HERSHEY_SIMPLEX, 
+#                    fontScale=1e-3 * image.shape[0], 
+#                    color=(0,128,0), 
+#                    thickness=1)
+    return image  
+
+def write_predict_boxes_xml(boxes, output_path, image_path, image, labels, obj_thresh):
+    image_path = image_path.split('/')[-1]
+    from lxml import etree as ET
+    annotation = ET.Element("annotation")
+    ET.SubElement(annotation, "folder").text = "images"
+    ET.SubElement(annotation, "filename").text = image_path
+    ET.SubElement(annotation, "path").text = 'Unkown'
+    source = ET.SubElement(annotation, "source")
+    ET.SubElement(source, "database").text = 'Unknown'
+    size = ET.SubElement(annotation, "size")
+    ET.SubElement(size, "width").text = str(image.shape[0])
+    ET.SubElement(size, "height").text = str(image.shape[1])
+    ET.SubElement(size, "depth").text = str(image.shape[2])
+    ET.SubElement(annotation, "segmented").text =str(0)
+    count = 0
+    for box in boxes:
+        label_str = ''
+        label = -1
+        
+        for i in range(len(labels)):
+            if box.classes[i] > obj_thresh:
+                if label_str != '': label_str += ', '
+                label_str += (labels[i] + ' ' + str(round(box.get_score()*100, 2)) + '%')
+                label = i
+                
+        if label >= 0:
+            myobject = ET.SubElement(annotation, "object",name="detection"+str(count))
+            ET.SubElement(myobject, "name").text = 'fish'
+            ET.SubElement(myobject, "pose").text = 'unspecified'
+            ET.SubElement(myobject, "truncated").text = str(1)
+            ET.SubElement(myobject, "difficult").text = str(0)
+            bndbox = ET.SubElement(myobject, "bndbox")
+            ET.SubElement(bndbox, "xmin").text = str(box.xmin)
+            ET.SubElement(bndbox, "ymin").text = str(box.ymin)
+            ET.SubElement(bndbox, "xmax").text = str(box.xmax)
+            ET.SubElement(bndbox, "ymax").text = str(box.ymax)
+            ET.SubElement(bndbox, "confidence").text = str(box.classes[0])
+            count = count + 1
+    tree = ET.ElementTree(annotation)
+    tree.write(output_path + image_path[0:-3]+".xml",  pretty_print=True)
+    return None
