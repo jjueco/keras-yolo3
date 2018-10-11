@@ -7,7 +7,7 @@ Wells Dam fish ladder:
 ![Alt text](media/WellsDamPredict.gif?raw=true "Fish Detection at Wells Dam Model output")
 
 Some true and false detections in the paper (green: human annotations; red: model detections): 
-![Alt text](media/fig3_detections_new.png?raw=true "Paper Figure 3")
+![Alt text](media/fig3_for_github.png?raw=true "Paper Figure 3")
 
 
 ## Dataset and Model
