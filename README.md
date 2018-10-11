@@ -113,11 +113,12 @@ It carries out detection on the image and write the image with detected bounding
 
 `python evaluate.py -c config_5.json`
 
-Compute the mAP performance of the model defined in `saved_weights_name` on the validation dataset defined in `valid_image_folder` and `valid_annot_folder`.
-A ".csv" file which include the cummulative statistics of true positives, false positives, precision and recall. The images in the paper are generated with ignore_thresh as 0.01.
+This step compute the mAP performance of the model defined in `saved_weights_name` on the validation dataset defined in `valid_image_folder` and `valid_annot_folder`.
+A ".csv" file will be generated after evaluation within the main directory. This csv file contains the cummulative statistics of true positives, false positives, precision and recall. The precision-recall curve in the paper are generated with ignore_thresh as 0.01, while the detections are made with ignore_thresh as 0.5.
 
 By default the option to output red detection boxes and green ground truth boxes during evaluation is turned off. To turn them on, go to utils/utils.py and 
 uncomment the two lines, and you can also customize where you want the outputs to be:
 `write_predict_boxes_xml(boxes=pred_boxes, output_path='output/debug/', image_path=generator.instances[i]['filename'],  image=raw_image[0], labels=['fish'], obj_thresh=obj_thresh)`
+
 `cv2.imwrite('output/debug/' + generator.instances[i]['filename'].split('/')[-1], np.uint8(raw_image[0]))`
 
