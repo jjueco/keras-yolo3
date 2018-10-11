@@ -6,7 +6,7 @@ This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 Fish Detection at Wells Dam Model output:
 ![Alt text](media/WellsDamPredict.gif?raw=true "Fish Detection at Wells Dam Model output")
 
-Some correct detections and false detections in Experiment I in the paper:
+Some correct detections and false detections in Experiment I in the paper (green: human annotations; red: model detections):
 ![Alt text](media/fig3_detections_new.png?raw=true "Paper Figure 3")
 
 
