@@ -1,5 +1,7 @@
 # Code and data to reproduce the study of "Underwater Fish Detection using Deep Learning for Water Power Applications"
 
+Xu, W., & Matzner, S. (2018). Underwater Fish Detection using Deep Learning for Water Power Applications. arXiv preprint arXiv:1811.01494.
+
 This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
 ## Model testing results:
@@ -13,6 +15,7 @@ Some true and false detections in the paper (green: human annotations; red: mode
 ## Dataset and Model
 
 MHK and hydropower underwater videos and fish annotations: 
+    https://release.datahub.pnnl.gov/released_data/710
 
 ## Todo list:
 - [x] Yolo3 detection
