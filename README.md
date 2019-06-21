@@ -4,6 +4,10 @@ Xu, W., & Matzner, S. (2018). Underwater Fish Detection using Deep Learning for 
 
 This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
+## Dataset
+MHK and hydropower underwater videos and fish annotations: 
+    https://datahub.pnnl.gov/datahub/project/4
+    
 ## Model testing results:
 Wells Dam fish ladder:  
 ![Alt text](media/WellsDamPredict.gif?raw=true "Fish Detection at Wells Dam Model output")
@@ -12,10 +16,7 @@ Some true and false detections in the paper (green: human annotations; red: mode
 ![Alt text](media/fig3_for_github.png?raw=true "Paper Figure 3")
 
 
-## Dataset and Model
-
-MHK and hydropower underwater videos and fish annotations: 
-    https://release.datahub.pnnl.gov/released_data/710
+## Model
 
 ## Todo list:
 - [x] Yolo3 detection
