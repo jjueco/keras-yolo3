@@ -17,6 +17,8 @@ Some true and false detections in the paper (green: human annotations; red: mode
 
 
 ## Model
+Trained model weight can be downloaded from here:
+https://drive.google.com/open?id=1OQ1pekdycOdZY0J20oFFZKg6YwxfbyAN
 
 ## Todo list:
 - [x] Yolo3 detection
