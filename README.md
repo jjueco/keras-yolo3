@@ -1,6 +1,6 @@
 # Code and data to reproduce the study of "Underwater Fish Detection using Deep Learning for Water Power Applications"
 
-Xu, W., & Matzner, S. (2018). Underwater Fish Detection using Deep Learning for Water Power Applications. arXiv preprint arXiv:1811.01494.
+Xu, W., & Matzner, S. (2018).Underwater fish detection using deep learning for water power applications. In 2018 International Conference on Computational Science and Computational Intelligence (CSCI) (pp. 313-318). IEEE.
 
 This repostitory is a fork from https://github.com/experiencor/keras-yolo3
 
