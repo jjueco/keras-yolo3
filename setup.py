@@ -28,7 +28,7 @@ if __name__ == '__main__':
         license = '',
         url = '',
         scripts = [],
-        packages = ['keras-yolov3', 'keras-yolov3.utils', 'keras-yolov3.media', 'keras-yolov3.zoo'],
+        packages = ['keras-yolov3', 'keras-yolov3.utils', 'keras-yolov3.zoo'],
         namespace_packages = [],
         py_modules = [],
         classifiers = [
