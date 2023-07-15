@@ -12,7 +12,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'mypackage'
+NAME = 'YOLO.fish'
 DESCRIPTION = 'My short description for my project.'
 URL = 'https://github.com/jjueco/keras-yolo3/'
 EMAIL = 'me@example.com'
